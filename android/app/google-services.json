@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "397787136282",
+    "firebase_url": "https://programathon2020.firebaseio.com",
+    "project_id": "programathon2020",
+    "storage_bucket": "programathon2020.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:397787136282:android:81e3ed8be449715d256ca3",
+        "android_client_info": {
+          "package_name": "com.example.programathon_tuercas_2020"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "397787136282-ve7pjj32f5r8k6im3q6hkjmpjiqej5ek.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.programathon_tuercas_2020",
+            "certificate_hash": "357f3c884aeecdb1bec2b105dc7aa872483b4bd2"
+          }
+        },
+        {
+          "client_id": "397787136282-78toh2kd0qsasvfga5qouatrbnaqhte5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC1xA7HkjeGEQCt4u9c8gkX5tS6e976vFw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "397787136282-78toh2kd0qsasvfga5qouatrbnaqhte5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

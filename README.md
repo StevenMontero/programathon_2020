@@ -1,6 +1,7 @@
 # programathon_tuercas_2020
 
-A new Flutter project.
+Proyecto realizado para la competicion de programathon 2020 en Costa Rica.
+
 
 ## Getting Started
 
