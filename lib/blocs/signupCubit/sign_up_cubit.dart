@@ -2,6 +2,8 @@ import 'package:authentication_repository/authentication_repository.dart';
 import 'package:formz/formz.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:programathon_tuercas_2020/Models/user_profile.dart';
+import 'package:programathon_tuercas_2020/repositories/DB/user_repository.dart';
 import 'package:programathon_tuercas_2020/utils/regularExpressions/regular_expressions_models.dart';
 
 part 'sign_up_state.dart';
@@ -12,7 +14,7 @@ class SignUpCubit extends Cubit<SignUpState> {
         super(const SignUpState());
 
   final AuthenticationRepository _authenticationRepository;
-
+  final UserRepository _userRepository = new UserRepository();
   void emailChanged(String value) {
     final email = Email.dirty(value);
     emit(state.copyWith(
@@ -59,6 +61,10 @@ class SignUpCubit extends Cubit<SignUpState> {
         email: state.email.value,
         password: state.password.value,
       );
+      _userRepository.addNewUser(new UserProfile(
+          userName: state.userName.value,
+          email: state.email.value,
+          phone: state.phone.value));
       emit(state.copyWith(status: FormzStatus.submissionSuccess));
     } on Exception {
       emit(state.copyWith(status: FormzStatus.submissionFailure));

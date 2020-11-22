@@ -2,6 +2,7 @@ import 'package:authentication_repository/authentication_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:formz/formz.dart';
+import 'package:programathon_tuercas_2020/Models/user_profile.dart';
 import 'package:programathon_tuercas_2020/utils/regularExpressions/regular_expressions_models.dart';
 
 part 'login_state.dart';

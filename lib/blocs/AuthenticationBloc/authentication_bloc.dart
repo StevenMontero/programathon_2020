@@ -5,6 +5,8 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:pedantic/pedantic.dart';
+import 'package:programathon_tuercas_2020/Models/user_profile.dart';
+import 'package:programathon_tuercas_2020/repositories/DB/user_repository.dart';
 part 'authentication_event.dart';
 part 'authentication_state.dart';
 
@@ -42,8 +44,15 @@ class AuthenticationBloc
   AuthenticationState _mapAuthenticationUserChangedToState(
     AuthenticationUserChanged event,
   ) {
-    return event.user != User.empty
-        ? AuthenticationState.authenticated(event.user)
-        : const AuthenticationState.unauthenticated();
+    if (event.user != User.empty) {
+      final UserRepository _repoUser = new UserRepository();
+      _repoUser.addNewUser(UserProfile(
+          userName: event.user.name,
+          email: event.user.email,
+          photoUri: event.user.photo,
+          id: event.user.id));
+      return AuthenticationState.authenticated(event.user);
+    }
+    return const AuthenticationState.unauthenticated();
   }
 }
