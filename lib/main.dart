@@ -4,7 +4,7 @@ import 'package:authentication_repository/authentication_repository.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:programathon_tuercas_2020/blocs/AuthenticationBloc/authentication_bloc.dart';
-import 'package:programathon_tuercas_2020/pages/Welcome/welcome_page.dart';
+import 'package:programathon_tuercas_2020/pages/Login/login_page.dart';
 import 'package:programathon_tuercas_2020/routes/routes.dart';
 import 'package:programathon_tuercas_2020/theme/theme.dart';
 
@@ -38,12 +38,7 @@ class MyApp extends StatelessWidget {
 }
 
 class AppView extends StatefulWidget {
-  const AppView({
-    Key key,
-    @required this.data,
-  }) : super(key: key);
-
-  final data;
+  const AppView({Key key}) : super(key: key);
 
   @override
   _AppViewState createState() => _AppViewState();
@@ -69,7 +64,7 @@ class _AppViewState extends State<AppView> {
                 _navigator.pushReplacementNamed('home');
                 break;
               case AuthenticationStatus.unauthenticated:
-                _navigator.pushReplacementNamed('choseLogOSig');
+                _navigator.pushReplacementNamed('login');
                 break;
               default:
                 break;
@@ -79,7 +74,7 @@ class _AppViewState extends State<AppView> {
         );
       },
       onGenerateRoute: (settings) =>
-          MaterialPageRoute(builder: (context) => WelcomePage()),
+          MaterialPageRoute(builder: (context) => LoginPage()),
     );
   }
 }

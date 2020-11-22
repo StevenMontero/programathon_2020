@@ -2,12 +2,11 @@ import 'package:formz/formz.dart';
 
 enum UserNameValidationError { invalid }
 
-class UserName extends FormzInput<String, UserNameValidationError > {
+class UserName extends FormzInput<String, UserNameValidationError> {
   const UserName.pure() : super.pure('');
   const UserName.dirty([String value = '']) : super.dirty(value);
 
-  static final _userNameRegExp =
-      RegExp(r'^[A-Za-z]$');
+  static final _userNameRegExp = RegExp(r'[a-zA-Z]+$');
 
   @override
   UserNameValidationError validator(String value) {

@@ -15,6 +15,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "397787136282-t47svs1a6evdmttf1ruagr075uqcgofv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.programathon_tuercas_2020",
+            "certificate_hash": "779787e06cb22a5d40a6934f3d950335b75df4fc"
+          }
+        },
+        {
+          "client_id": "397787136282-1vehq1babjgvrbdagkk6jhko6ig04uvc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.programathon_tuercas_2020",
+            "certificate_hash": "8b4e2d0839b7a3b33b35c96c3084eee1d4eeb499"
+          }
+        },
+        {
           "client_id": "397787136282-ve7pjj32f5r8k6im3q6hkjmpjiqej5ek.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
