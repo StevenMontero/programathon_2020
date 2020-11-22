@@ -61,9 +61,11 @@ class SignUpCubit extends Cubit<SignUpState> {
         email: state.email.value,
         password: state.password.value,
       );
+      final userLoged = await _authenticationRepository.user.last;
       _userRepository.addNewUser(new UserProfile(
           userName: state.userName.value,
           email: state.email.value,
+          id: userLoged.id,
           phone: state.phone.value));
       emit(state.copyWith(status: FormzStatus.submissionSuccess));
     } on Exception {

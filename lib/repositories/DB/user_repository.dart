@@ -7,7 +7,8 @@ class UserRepository {
 
   Future<void> addNewUser(UserProfile user) {
     return _ref
-        .add(user.toJson())
+        .doc(user.id)
+        .set(user.toJson(), SetOptions(merge: true))
         .then((value) => print('User Added'))
         .catchError((error) => print('Failed to add user: $error'));
   }
