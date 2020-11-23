@@ -6,9 +6,8 @@ import 'package:programathon_tuercas_2020/pages/Home/dumydata/data.dart';
 class Details extends StatefulWidget {
   final String imgUrl;
   final String placeName;
-  final double rating;
-  Details(
-      {@required this.rating, @required this.imgUrl, @required this.placeName});
+
+  Details({@required this.imgUrl, @required this.placeName});
 
   @override
   _DetailsState createState() => _DetailsState();
@@ -66,19 +65,6 @@ class _DetailsState extends State<Details> {
                                 ),
                               ),
                               Spacer(),
-                              Icon(
-                                Icons.share,
-                                color: Colors.white,
-                                size: 24,
-                              ),
-                              SizedBox(
-                                width: 24,
-                              ),
-                              SvgPicture.asset(
-                                "assets/icons/Heart Icon.svg",
-                                height: 24,
-                                width: 24,
-                              )
                             ],
                           ),
                         ),
@@ -122,22 +108,6 @@ class _DetailsState extends State<Details> {
                               ),
                               SizedBox(
                                 height: 8,
-                              ),
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  RatingBar(widget.rating.round()),
-                                  SizedBox(
-                                    width: 8,
-                                  ),
-                                  Text(
-                                    "${widget.rating}",
-                                    style: TextStyle(
-                                        color: Colors.white70,
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 17),
-                                  )
-                                ],
                               ),
                             ],
                           ),
@@ -336,53 +306,6 @@ class FeaturesTile extends StatelessWidget {
         ),
       ),
     );
-  }
-}
-
-class RatingBar extends StatelessWidget {
-  final int rating;
-  RatingBar(this.rating);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-        child: Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Icon(
-          Icons.star,
-          color: rating >= 1 ? Colors.white70 : Colors.white30,
-        ),
-        SizedBox(
-          width: 3,
-        ),
-        Icon(
-          Icons.star,
-          color: rating >= 2 ? Colors.white70 : Colors.white30,
-        ),
-        SizedBox(
-          width: 3,
-        ),
-        Icon(
-          Icons.star,
-          color: rating >= 3 ? Colors.white70 : Colors.white30,
-        ),
-        SizedBox(
-          width: 3,
-        ),
-        Icon(
-          Icons.star,
-          color: rating >= 4 ? Colors.white70 : Colors.white30,
-        ),
-        SizedBox(
-          width: 3,
-        ),
-        Icon(
-          Icons.star,
-          color: rating >= 5 ? Colors.white70 : Colors.white30,
-        ),
-      ],
-    ));
   }
 }
 

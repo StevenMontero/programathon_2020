@@ -1,10 +1,14 @@
 class CountryModel {
   String label;
-  String countryName;
+  String provinceName;
   int noOfTours;
   double rating;
   String imgUrl;
 
   CountryModel(
-      {this.countryName, this.label, this.noOfTours, this.rating, this.imgUrl});
+      {this.provinceName,
+      this.label,
+      this.noOfTours,
+      this.rating,
+      this.imgUrl});
 }

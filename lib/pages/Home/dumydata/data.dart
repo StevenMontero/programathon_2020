@@ -6,72 +6,71 @@ List<CountryModel> getCountrys() {
   CountryModel countryModel = new CountryModel();
 
 //1
-  countryModel.countryName = "Thailand";
+  countryModel.provinceName = "San José";
   countryModel.label = "New";
   countryModel.noOfTours = 18;
   countryModel.rating = 4.5;
-  countryModel.imgUrl =
-      "https://images.pexels.com/photos/1659438/pexels-photo-1659438.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260";
+  countryModel.imgUrl = "assets/images/sanjose.jpg";
   country.add(countryModel);
   countryModel = new CountryModel();
 
   //1
-  countryModel.countryName = "Malaysia";
+  countryModel.provinceName = "Alajuela";
   countryModel.label = "Sale";
   countryModel.noOfTours = 12;
   countryModel.rating = 4.3;
-  countryModel.imgUrl =
-      "https://images.pexels.com/photos/1366919/pexels-photo-1366919.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260";
+  countryModel.imgUrl = "assets/images/alajuela.jpg";
+  ;
   country.add(countryModel);
   countryModel = new CountryModel();
 
   //1
-  countryModel.countryName = "Thailand";
+  countryModel.provinceName = "Cartago";
   countryModel.label = "New";
   countryModel.noOfTours = 18;
   countryModel.rating = 4.5;
-  countryModel.imgUrl =
-      "https://images.pexels.com/photos/3568489/pexels-photo-3568489.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260";
+  countryModel.imgUrl = "assets/images/cartago.jpg";
+  ;
   country.add(countryModel);
   countryModel = new CountryModel();
 
   //1
-  countryModel.countryName = "Thailand";
+  countryModel.provinceName = "Heredia";
   countryModel.label = "New";
   countryModel.noOfTours = 18;
   countryModel.rating = 4.5;
-  countryModel.imgUrl =
-      "https://images.pexels.com/photos/1659438/pexels-photo-1659438.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260";
+  countryModel.imgUrl = "assets/images/heredia.jpg";
+  ;
   country.add(countryModel);
   countryModel = new CountryModel();
 
   //1
-  countryModel.countryName = "Thailand";
+  countryModel.provinceName = "Guanacaste";
   countryModel.label = "New";
   countryModel.noOfTours = 18;
   countryModel.rating = 4.5;
-  countryModel.imgUrl =
-      "https://images.pexels.com/photos/1659438/pexels-photo-1659438.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260";
+  countryModel.imgUrl = "assets/images/guanacaste.jpg";
+  ;
   country.add(countryModel);
   countryModel = new CountryModel();
 
   //1
-  countryModel.countryName = "Thailand";
+  countryModel.provinceName = "Puntarenas";
   countryModel.label = "New";
   countryModel.noOfTours = 18;
   countryModel.rating = 4.5;
-  countryModel.imgUrl =
-      "https://images.pexels.com/photos/1659438/pexels-photo-1659438.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260";
+  countryModel.imgUrl = "assets/images/puntaarenas.jpg";
+  ;
   country.add(countryModel);
   countryModel = new CountryModel();
 
   //1
-  countryModel.countryName = "Thailand";
+  countryModel.provinceName = "Limón";
   countryModel.label = "New";
   countryModel.noOfTours = 18;
   countryModel.rating = 4.5;
-  countryModel.imgUrl =
-      "https://images.pexels.com/photos/1659438/pexels-photo-1659438.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260";
+  countryModel.imgUrl = "assets/images/limon.jpg";
+  ;
   country.add(countryModel);
   countryModel = new CountryModel();
 

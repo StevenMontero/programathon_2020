@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:programathon_tuercas_2020/blocs/loginCubit/login_cubit.dart';
 import 'package:programathon_tuercas_2020/pages/Signup/Components/signup_form.dart';
 import 'package:programathon_tuercas_2020/size_config.dart';
-import 'package:programathon_tuercas_2020/theme/colors.dart';
+import 'package:programathon_tuercas_2020/widgets/no_account_text.dart';
+import 'package:programathon_tuercas_2020/widgets/socal_card.dart';
 
 class Body extends StatelessWidget {
   @override
@@ -24,29 +27,24 @@ class Body extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  "Emprende una nueva aventura!",
+                  "Descubre los mejores lugares turiticos",
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(height: SizeConfig.screenHeight * 0.08),
                 SignupForm(),
-                SizedBox(height: SizeConfig.screenHeight * 0.03),
+                SizedBox(height: SizeConfig.screenHeight * 0.08),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      "Tienes una cuenta? ",
-                      style: TextStyle(fontSize: 16),
-                    ),
-                    GestureDetector(
-                      onTap: () => Navigator.pushNamed(context, 'login'),
-                      child: Text(
-                        "Login",
-                        style: TextStyle(
-                            fontSize: 16, color: ColorsApp.primaryColorOrange),
-                      ),
+                    SocalCard(
+                      icon: "assets/icons/google-icon.svg",
+                      press: () => BlocProvider.of<LoginCubit>(context)
+                          .logInWithGoogle(),
                     ),
                   ],
-                )
+                ),
+                SizedBox(height: 20),
+                NoAccountText(),
               ],
             ),
           ),
