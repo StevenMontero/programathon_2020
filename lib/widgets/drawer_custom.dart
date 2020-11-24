@@ -20,10 +20,10 @@ class AppDrawer extends StatelessWidget {
           _createDrawerItem(
               icon: FontAwesomeIcons.plusCircle,
               text: 'Publicar',
-              onTap: () => Navigator.pushReplacementNamed(context, '')),
-          Divider(),
+              onTap: () =>
+                  Navigator.pushReplacementNamed(context, 'publicationform')),
           _createDrawerItem(
-              icon: Icons.collections_bookmark, text: 'Cerrar Sesión'),
+              icon: FontAwesomeIcons.signOutAlt, text: 'Cerrar Sesión'),
         ],
       ),
     );

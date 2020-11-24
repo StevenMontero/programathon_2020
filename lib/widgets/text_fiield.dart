@@ -10,7 +10,8 @@ class TextFieldCustom extends StatelessWidget {
       this.inputType,
       this.errorOccurred = false,
       this.erroMessage = '',
-      this.hintText})
+      this.hintText,
+      this.maxLines = 1})
       : super(key: key);
   final bool isPassword;
   final String label;
@@ -20,12 +21,14 @@ class TextFieldCustom extends StatelessWidget {
   final erroMessage;
   final ValueChanged<String> onChanged;
   final String hintText;
+  final int maxLines;
 
   @override
   Widget build(BuildContext context) {
     return TextField(
       obscureText: isPassword,
       onChanged: onChanged,
+      maxLines: maxLines,
       keyboardType: inputType,
       decoration: InputDecoration(
         errorText: errorOccurred ? erroMessage : null,

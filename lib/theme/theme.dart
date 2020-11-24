@@ -35,7 +35,7 @@ AppBarTheme appBarTheme() {
 InputDecorationTheme inputDecorationTheme() {
   OutlineInputBorder outlineInputBorder = OutlineInputBorder(
     borderRadius: BorderRadius.circular(28),
-    borderSide: BorderSide(color: ColorsApp.textPrimaryColor),
+    borderSide: BorderSide(color: ColorsApp.secondaryColorlightPurple),
     gapPadding: 10,
   );
   return InputDecorationTheme(
