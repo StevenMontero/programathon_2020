@@ -1,21 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:programathon_tuercas_2020/blocs/NewPublication/newpublication_cubit.dart';
 import 'package:programathon_tuercas_2020/pages/Home/AddPublicationPage/components/body.dart';
+import 'package:programathon_tuercas_2020/repositories/DB/publication_repository.dart';
 
 class PublicationFormPage extends StatelessWidget {
   const PublicationFormPage({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text('Agregar Tour'),
-        leading: IconButton(
-            icon: Icon(Icons.arrow_back),
-            onPressed: () =>
-                Navigator.of(context).pushReplacementNamed('home')),
+    return BlocProvider(
+      create: (context) => NewpublicationCubit(PublicatonRepository()),
+      child: Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text('Agregar Tour'),
+          leading: IconButton(
+              icon: Icon(Icons.arrow_back),
+              onPressed: () =>
+                  Navigator.of(context).pushReplacementNamed('home')),
+        ),
+        body: BodyNewForm(),
       ),
-      body: BodyNewForm(),
     );
   }
 }

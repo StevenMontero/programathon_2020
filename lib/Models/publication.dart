@@ -7,9 +7,9 @@ class Publication {
   final String description;
   final double price;
   final int quotas;
-  final String otherDetails;
+  final List<String> extras;
   final List<String> photos;
-  final List<DateTime> schedule;
+  final DateTime datePublication;
   final Address address;
   final UserProfile userProfile;
 
@@ -19,9 +19,9 @@ class Publication {
       this.description,
       this.price,
       this.quotas,
-      this.otherDetails,
+      this.extras,
       this.photos,
-      this.schedule,
+      this.datePublication,
       this.address,
       this.userProfile});
   factory Publication.fromJson(Map<String, dynamic> json) => Publication(
@@ -30,9 +30,9 @@ class Publication {
       description: json['description'],
       price: double.parse(json['price']),
       quotas: int.parse(json['quotas']),
-      otherDetails: json['otherDetails'],
+      extras: List<String>.from(json['extras'].map((x) => x)),
       photos: List<String>.from(json['photos'].map((x) => x)),
-      schedule: List<DateTime>.from(json['schedule'].map((x) => x)),
+      datePublication: json['datePublication'],
       address: json['address'],
       userProfile: UserProfile.fromJson(json['userProfile']));
 
@@ -43,9 +43,9 @@ class Publication {
       'description': this.description,
       'price': this.price,
       'quotas': this.quotas,
-      'otherDetails': this.otherDetails,
+      'extras': this.extras,
       'photos': this.photos,
-      'schedule': this.schedule,
+      'datePublication': this.datePublication,
       'address': this.address,
       'userProfile': this.userProfile.toJson()
     };

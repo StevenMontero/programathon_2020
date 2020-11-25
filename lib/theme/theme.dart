@@ -36,10 +36,10 @@ InputDecorationTheme inputDecorationTheme() {
   OutlineInputBorder outlineInputBorder = OutlineInputBorder(
     borderRadius: BorderRadius.circular(28),
     borderSide: BorderSide(color: ColorsApp.secondaryColorlightPurple),
-    gapPadding: 10,
+    gapPadding: 5,
   );
   return InputDecorationTheme(
-    contentPadding: EdgeInsets.symmetric(horizontal: 42, vertical: 20),
+    contentPadding: EdgeInsets.symmetric(horizontal: 25, vertical: 20),
     enabledBorder: outlineInputBorder,
     focusedBorder: outlineInputBorder,
     border: outlineInputBorder,

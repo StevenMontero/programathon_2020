@@ -1,10 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:programathon_tuercas_2020/Models/publication.dart';
 
 class PublicatonRepository {
   final CollectionReference _ref =
       FirebaseFirestore.instance.collection('users');
-
+  FirebaseStorage _storageRef = FirebaseStorage.instance;
   Future<void> addNewPublication(Publication publication) {
     return _ref
         .doc(publication.id)
@@ -32,5 +33,15 @@ class PublicatonRepository {
         .update(publication.toJson())
         .then((value) => print('Success Update'))
         .catchError((error) => print('Failure Update'));
+  }
+
+  Future<void> uploadFile(String filePath) async {
+    // File file = File(filePath);
+
+    try {
+      // await _storageRef.ref('uploads/file-to-upload.png').putFile(file);
+    } on FirebaseException catch (e) {
+      // e.g, e.code == 'canceled'
+    }
   }
 }

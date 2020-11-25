@@ -66,7 +66,7 @@ class _HomePageState extends State<HomePage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Los mejores lugres y turs",
+                "Los mejores lugares y tours",
                 style: TextStyle(
                     fontSize: 25,
                     color: Colors.black54,
