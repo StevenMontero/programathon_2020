@@ -12,7 +12,7 @@ class AppDrawer extends StatelessWidget {
           _createDrawerItem(
               icon: FontAwesomeIcons.solidUser,
               text: 'Perfil',
-              onTap: () => Navigator.pushReplacementNamed(context, '')),
+              onTap: () => Navigator.pushReplacementNamed(context, 'userProfile')),
           _createDrawerItem(
               icon: FontAwesomeIcons.solidCalendar,
               text: 'Reservaciones',
