@@ -28,11 +28,11 @@ class NewpublicationCubit extends Cubit<PublicationFormnState> {
         district: state.description.value,
         details: state.addressDetails.value);
     final user = new Publication(
-        address: address,
-        datePublication: DateTime.now(),
-        description: state.description.value,
-        extras: state.extras,
-        photos: state.photos.value);
+      address: address,
+      datePublication: DateTime.now(),
+      description: state.description.value,
+      extras: state.extras,
+    );
   }
 
   void titleChanged(String value) {

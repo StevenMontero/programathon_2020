@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:programathon_tuercas_2020/pages/Home/home_page.dart';
 
 class TopBar extends StatelessWidget {
   const TopBar({
@@ -13,6 +14,8 @@ class TopBar extends StatelessWidget {
         children: <Widget>[
           IconButton(
             onPressed: () {
+              Navigator.pushReplacement(
+                  context, MaterialPageRoute(builder: (context) => HomePage()));
             },
             icon: Icon(
               Icons.arrow_back,
