@@ -33,7 +33,7 @@ class Publication {
       extras: List<String>.from(json['extras'].map((x) => x)),
       photos: List<String>.from(json['photos'].map((x) => x)),
       datePublication: json['datePublication'],
-      address: json['address'],
+      address: Address.fromJson(json['address']),
       userProfile: UserProfile.fromJson(json['userProfile']));
 
   Map<String, dynamic> toJson() {
@@ -46,7 +46,7 @@ class Publication {
       'extras': this.extras,
       'photos': this.photos,
       'datePublication': this.datePublication,
-      'address': this.address,
+      'address': this.address.toJson(),
       'userProfile': this.userProfile.toJson()
     };
   }
