@@ -1,10 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:multi_image_picker/multi_image_picker.dart';
 import 'package:programathon_tuercas_2020/Models/publication.dart';
 
 class PublicatonRepository {
   final CollectionReference _ref =
-      FirebaseFirestore.instance.collection('users');
+      FirebaseFirestore.instance.collection('publicaciones');
   FirebaseStorage _storageRef = FirebaseStorage.instance;
   Future<void> addNewPublication(Publication publication) {
     return _ref
@@ -35,13 +36,15 @@ class PublicatonRepository {
         .catchError((error) => print('Failure Update'));
   }
 
-  Future<void> uploadFile(String filePath) async {
-    // File file = File(filePath);
-
-    try {
-      // await _storageRef.ref('uploads/file-to-upload.png').putFile(file);
-    } on FirebaseException catch (e) {
-      // e.g, e.code == 'canceled'
+  Future<void> uploadFile(List<Asset> images) async {
+    for (var imageFile in images) {
+      try {
+        await _storageRef
+            .ref('imagenes/' + '${imageFile.name}')
+            .putData((await imageFile.getByteData()).buffer.asUint8List());
+      } on FirebaseException catch (e) {
+        print('Error subir foto :' + e.message);
+      }
     }
   }
 }

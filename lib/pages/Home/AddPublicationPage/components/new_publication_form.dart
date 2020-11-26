@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:multi_image_picker/multi_image_picker.dart';
+import 'package:programathon_tuercas_2020/Models/user_profile.dart';
+import 'package:programathon_tuercas_2020/blocs/AuthenticationBloc/authentication_bloc.dart';
 import 'package:programathon_tuercas_2020/blocs/NewPublication/newpublication_cubit.dart';
 import 'package:programathon_tuercas_2020/widgets/chip_custom.dart';
 import 'package:programathon_tuercas_2020/widgets/default_button.dart';
 import 'package:programathon_tuercas_2020/widgets/text_fiield.dart';
+import 'package:formz/formz.dart';
 
 class FormPublication extends StatefulWidget {
   FormPublication({Key key}) : super(key: key);
@@ -296,9 +299,33 @@ class _FormPublicationState extends State<FormPublication> {
         ),
         Padding(
           padding: const EdgeInsets.all(10.0),
-          child: DefaultButton(
-            text: 'Publicar',
-            press: () {},
+          child: BlocBuilder<NewpublicationCubit, PublicationFormnState>(
+            buildWhen: (previous, current) => previous.status != current.status,
+            builder: (context, state) {
+              return state.status.isSubmissionInProgress
+                  ? LinearProgressIndicator()
+                  : DefaultButton(
+                      text: 'Publicar',
+                      press: state.status.isValidated
+                          ? () {
+                              final user =
+                                  context.read<AuthenticationBloc>().state.user;
+                              context
+                                  .read<NewpublicationCubit>()
+                                  .summitFromPublication(new UserProfile(
+                                      userName: user.name,
+                                      email: user.email,
+                                      id: user.id,
+                                      photoUri: user.photo));
+
+                              if (state.status.isSubmissionSuccess) {
+                                Navigator.of(context)
+                                    .pushReplacementNamed('home');
+                              }
+                            }
+                          : null,
+                    );
+            },
           ),
         ),
       ],

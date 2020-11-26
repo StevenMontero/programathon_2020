@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:formz/formz.dart';
 import 'package:multi_image_picker/multi_image_picker.dart';
 import 'package:programathon_tuercas_2020/Models/address.dart';
@@ -21,18 +22,35 @@ class NewpublicationCubit extends Cubit<PublicationFormnState> {
       : assert(_publicatonRepository != null),
         super(PublicationFormnState(extras: new List<String>()));
 
-  void _summitFromPublication() {
+  void summitFromPublication(UserProfile user) {
+    emit(state.copyWith(status: FormzStatus.submissionInProgress));
+    final date = DateTime.now();
     final address = new Address(
         province: state.province.value,
         canton: state.canton.value,
         district: state.description.value,
         details: state.addressDetails.value);
-    final user = new Publication(
-      address: address,
-      datePublication: DateTime.now(),
-      description: state.description.value,
-      extras: state.extras,
-    );
+    final publication = new Publication(
+        id: user.id + '-' + date.toString(),
+        userProfile: user,
+        address: address,
+        title: state.title.value,
+        datePublication: date,
+        description: state.description.value,
+        extras: state.extras,
+        quotas: int.parse(state.quotes.value),
+        photos: List<String>.from(state.photos.value.map((x) => x.name)),
+        price: double.parse(
+          state.price.value,
+        ));
+
+    try {
+      _publicatonRepository.uploadFile(state.photos.value);
+      _publicatonRepository.addNewPublication(publication);
+      emit(state.copyWith(status: FormzStatus.submissionSuccess));
+    } on FirebaseException catch (e) {
+      emit(state.copyWith(status: FormzStatus.submissionFailure));
+    }
   }
 
   void titleChanged(String value) {
