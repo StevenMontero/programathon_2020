@@ -12,15 +12,12 @@ class TopBar extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+            },
             icon: Icon(
               Icons.arrow_back,
               color: Colors.white,
             ),
-          ),
-          IconButton(
-            onPressed: () {},
-            icon: Icon(Icons.menu, color: Colors.white),
           ),
         ],
       ),
