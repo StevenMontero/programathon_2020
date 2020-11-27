@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:programathon_tuercas_2020/theme/colors.dart';
 
 class TextFieldCustom extends StatelessWidget {
   TextFieldCustom(
@@ -25,12 +26,21 @@ class TextFieldCustom extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final borderDecoration = OutlineInputBorder(
+      borderRadius: BorderRadius.circular(28),
+      borderSide: BorderSide(color: ColorsApp.secondaryColorlightPurple),
+      gapPadding: 5,
+    );
     return TextField(
       obscureText: isPassword,
       onChanged: onChanged,
       maxLines: maxLines,
       keyboardType: inputType,
       decoration: InputDecoration(
+        contentPadding: EdgeInsets.symmetric(horizontal: 25, vertical: 20),
+        focusedBorder: borderDecoration,
+        border: borderDecoration,
+        enabledBorder: borderDecoration,
         errorText: errorOccurred ? erroMessage : null,
         labelText: label,
         hintText: hintText,

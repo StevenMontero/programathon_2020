@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:programathon_tuercas_2020/blocs/AuthenticationBloc/authentication_bloc.dart';
 
 class AppDrawer extends StatelessWidget {
   @override
@@ -12,18 +14,26 @@ class AppDrawer extends StatelessWidget {
           _createDrawerItem(
               icon: FontAwesomeIcons.solidUser,
               text: 'Perfil',
-              onTap: () => Navigator.pushReplacementNamed(context, 'userProfile')),
+              onTap: () =>
+                  Navigator.pushReplacementNamed(context, 'userProfile')),
           _createDrawerItem(
               icon: FontAwesomeIcons.solidCalendar,
-              text: 'Reservaciones',
+              text: 'Reservaciones Hechas',
               onTap: () => Navigator.pushReplacementNamed(context, '')),
+          _createDrawerItem(
+              icon: FontAwesomeIcons.solidCalendar,
+              text: 'Mis Publicadas',
+              onTap: () => Navigator.pushReplacementNamed(context, 'mypost')),
           _createDrawerItem(
               icon: FontAwesomeIcons.plusCircle,
               text: 'Publicar',
               onTap: () =>
                   Navigator.pushReplacementNamed(context, 'publicationform')),
           _createDrawerItem(
-              icon: FontAwesomeIcons.signOutAlt, text: 'Cerrar Sesión'),
+              icon: FontAwesomeIcons.signOutAlt,
+              text: 'Cerrar Sesión',
+              onTap: () => BlocProvider.of<AuthenticationBloc>(context)
+                  .add(AuthenticationLogoutRequested())),
         ],
       ),
     );

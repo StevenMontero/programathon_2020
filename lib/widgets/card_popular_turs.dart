@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:programathon_tuercas_2020/Models/publication.dart';
 import 'package:programathon_tuercas_2020/pages/Home/detail_page.dart';
 
 class PopularToursCard extends StatelessWidget {
   final String imgUrl;
-  final String title;
-  final String desc;
-  final String price;
-  PopularToursCard(
-      {@required this.imgUrl,
-      @required this.desc,
-      @required this.price,
-      @required this.title});
+  final Publication publication;
+  PopularToursCard({
+    @required this.imgUrl,
+    @required this.publication,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +19,7 @@ class PopularToursCard extends StatelessWidget {
             MaterialPageRoute(
                 builder: (context) => Details(
                       imgUrl: imgUrl,
-                      placeName: title,
+                      publication: publication,
                     )));
       },
       child: Container(
@@ -49,7 +47,7 @@ class PopularToursCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      title,
+                      publication.title,
                       style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
@@ -59,7 +57,7 @@ class PopularToursCard extends StatelessWidget {
                       height: 3,
                     ),
                     Text(
-                      desc,
+                      publication.description,
                       style: TextStyle(
                           fontSize: 13,
                           fontWeight: FontWeight.w400,
@@ -69,7 +67,8 @@ class PopularToursCard extends StatelessWidget {
                       height: 6,
                     ),
                     Text(
-                      price,
+                      publication.price.toString(),
+                      overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w600,

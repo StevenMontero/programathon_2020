@@ -271,12 +271,12 @@ class _FormPublicationState extends State<FormPublication> {
                     slected
                         ? context
                             .read<NewpublicationCubit>()
-                            .extrasAdded('Alimentacion')
+                            .extrasAdded('Alimentación')
                         : context
                             .read<NewpublicationCubit>()
                             .extrasRemoved('Alimentacion');
                   },
-                  isSelected: state.extras.contains('Alimentacion'),
+                  isSelected: state.extras.contains('Alimentación'),
                 ),
                 ChipBenefits(
                   label: 'Transporte',

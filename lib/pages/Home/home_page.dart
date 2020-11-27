@@ -3,9 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:programathon_tuercas_2020/blocs/HomeBloc/home_bloc.dart';
+import 'package:programathon_tuercas_2020/blocs/PastListBloc/postlist_bloc.dart';
 import 'package:programathon_tuercas_2020/pages/Home/dumydata/country_model.dart';
 import 'package:programathon_tuercas_2020/pages/Home/dumydata/data.dart';
-import 'package:programathon_tuercas_2020/pages/Home/dumydata/popular_tours_model.dart';
+import 'package:programathon_tuercas_2020/pages/Home/search_delegate.dart';
 import 'package:programathon_tuercas_2020/repositories/DB/publication_repository.dart';
 import 'package:programathon_tuercas_2020/widgets/card_popular_turs.dart';
 import 'package:programathon_tuercas_2020/widgets/drawer_custom.dart';
@@ -17,12 +18,10 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<PopularTourModel> popularTourModels = new List();
-  List<CountryModel> country = new List();
+  List<ProvinceModel> province = new List();
   @override
   void initState() {
-    country = getCountrys();
-    popularTourModels = getPopularTours();
+    province = getProvince();
     super.initState();
   }
 
@@ -52,7 +51,9 @@ class _HomePageState extends State<HomePage> {
         actions: [
           Container(
               child: MaterialButton(
-            onPressed: () {},
+            onPressed: () {
+              showSearch(context: context, delegate: DataSearch());
+            },
             shape: CircleBorder(),
             child: Icon(
               FontAwesomeIcons.search,
@@ -62,10 +63,14 @@ class _HomePageState extends State<HomePage> {
         ],
         elevation: 0.0,
       ),
-      body: BlocProvider(
-        create: (context) =>
-            HomeBloc(PublicatonRepository())..add(PostFetched()),
-        child: Body(country: country, popularTourModels: popularTourModels),
+      body: MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (context) =>
+                HomeBloc(PublicatonRepository())..add(PostFetched()),
+          ),
+        ],
+        child: Body(province: province),
       ),
     );
   }
@@ -74,12 +79,10 @@ class _HomePageState extends State<HomePage> {
 class Body extends StatefulWidget {
   const Body({
     Key key,
-    @required this.country,
-    @required this.popularTourModels,
+    @required this.province,
   }) : super(key: key);
 
-  final List<CountryModel> country;
-  final List<PopularTourModel> popularTourModels;
+  final List<ProvinceModel> province;
 
   @override
   _BodyState createState() => _BodyState();
@@ -124,16 +127,20 @@ class _BodyState extends State<Body> {
             Container(
               height: 220,
               child: ListView.builder(
-                  itemCount: widget.country.length,
+                  itemCount: widget.province.length,
                   shrinkWrap: true,
                   physics: ClampingScrollPhysics(),
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (context, index) {
                     return ProvinceCard(
-                      label: widget.country[index].label,
-                      provinceName: widget.country[index].provinceName,
-                      noOfTours: widget.country[index].noOfTours,
-                      imgUrl: widget.country[index].imgUrl,
+                      onPress: () {
+                        Navigator.of(context).pushNamed('listpost',
+                            arguments: widget.province[index].provinceName);
+                      },
+                      label: widget.province[index].label,
+                      provinceName: widget.province[index].provinceName,
+                      noOfTours: widget.province[index].noOfTours,
+                      imgUrl: widget.province[index].imgUrl,
                     );
                   }),
             ),
@@ -180,16 +187,15 @@ class _BodyState extends State<Body> {
                               AsyncSnapshot<List<String>> snapshot) {
                             if (snapshot.hasData)
                               return PopularToursCard(
-                                desc: state.posts[index].description,
                                 imgUrl: snapshot.data[0],
-                                title: state.posts[index].title ?? 'Hola',
-                                price: state.posts[index].price.toString(),
+                                publication: state.posts[index],
                               );
                             return Container();
                           },
                         );
                       });
                 }
+                return Container();
               },
             )
           ],
