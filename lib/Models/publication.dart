@@ -28,11 +28,12 @@ class Publication {
       id: json['id'],
       title: json['title'],
       description: json['description'],
-      price: double.parse(json['price']),
-      quotas: int.parse(json['quotas']),
+      price: json['price'],
+      quotas: json['quotas'],
       extras: List<String>.from(json['extras'].map((x) => x)),
       photos: List<String>.from(json['photos'].map((x) => x)),
-      datePublication: json['datePublication'],
+      datePublication: DateTime.now(),
+      // DateTime.fromMillisecondsSinceEpoch(json['datePublication'] * 1000),
       address: Address.fromJson(json['address']),
       userProfile: UserProfile.fromJson(json['userProfile']));
 
