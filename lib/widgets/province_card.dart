@@ -4,20 +4,22 @@ class ProvinceCard extends StatelessWidget {
   final String label;
   final String provinceName;
   final int noOfTours;
+  final Function onPress;
 
   final String imgUrl;
   ProvinceCard(
       {@required this.provinceName,
       @required this.label,
       @required this.noOfTours,
-      @required this.imgUrl});
+      @required this.imgUrl,
+      @required this.onPress});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(right: 8),
       child: InkWell(
-        onTap: () {},
+        onTap: onPress,
         child: Stack(
           children: [
             ClipRRect(

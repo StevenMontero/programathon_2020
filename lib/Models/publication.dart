@@ -1,5 +1,6 @@
 import 'package:programathon_tuercas_2020/Models/address.dart';
 import 'package:programathon_tuercas_2020/Models/user_profile.dart';
+import 'package:programathon_tuercas_2020/repositories/DB/publication_repository.dart';
 
 class Publication {
   final String id;
@@ -50,5 +51,11 @@ class Publication {
       'address': this.address.toJson(),
       'userProfile': this.userProfile.toJson()
     };
+  }
+
+  Future<List<String>> getImages() async {
+    PublicatonRepository _repo = new PublicatonRepository();
+    final list = await _repo.loadImage(this.photos);
+    return list;
   }
 }

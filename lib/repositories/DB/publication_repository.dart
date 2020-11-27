@@ -25,7 +25,40 @@ class PublicatonRepository {
     return publication;
   }
 
-  Future<void> updateUser(
+  Future<List<Publication>> searchPost(String query) async {
+    List<Publication> publication = new List();
+    QuerySnapshot snapshot = await _ref.get();
+    final result = snapshot.docs
+        .where((DocumentSnapshot a) => a.data()['title'].contains(query));
+    result.forEach((element) {
+      publication.add(Publication.fromJson(element.data()));
+    });
+    return publication;
+  }
+
+  Future<List<Publication>> getByProvince(String province) async {
+    List<Publication> publication = new List();
+    QuerySnapshot snapshot = await _ref.get();
+    final result = snapshot.docs.where((DocumentSnapshot a) =>
+        a.data()['address']['province'].contains(province));
+    result.forEach((element) {
+      publication.add(Publication.fromJson(element.data()));
+    });
+    return publication;
+  }
+
+  Future<List<Publication>> getByUser(String user) async {
+    List<Publication> publication = new List();
+    QuerySnapshot snapshot = await _ref.get();
+    final result = snapshot.docs.where((DocumentSnapshot a) =>
+        a.data()['userProfile']['userName'].contains(user));
+    result.forEach((element) {
+      publication.add(Publication.fromJson(element.data()));
+    });
+    return publication;
+  }
+
+  Future<void> updatePost(
     Publication publication,
   ) {
     return _ref
@@ -45,5 +78,19 @@ class PublicatonRepository {
         print('Error subir foto :' + e.message);
       }
     }
+  }
+
+  Future<List<String>> loadImage(List<String> images) async {
+    List<String> imagesListURL = new List();
+    for (var item in images) {
+      try {
+        imagesListURL
+            .add(await _storageRef.ref('imagenes/$item').getDownloadURL());
+      } on FirebaseException catch (e) {
+        print('Error subir foto :' + e.message);
+      }
+    }
+
+    return imagesListURL;
   }
 }

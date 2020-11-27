@@ -22,6 +22,17 @@ class ReservationRepository {
     return reservations;
   }
 
+  Future<List<Reservation>> getByUser(String user) async {
+    List<Reservation> publication = new List();
+    QuerySnapshot snapshot = await _ref.get();
+    final result = snapshot.docs.where((DocumentSnapshot a) =>
+        a.data()['userClient']['userName'].contains(user));
+    result.forEach((element) {
+      publication.add(Reservation.fromJson(element.data()));
+    });
+    return publication;
+  }
+
   Future<void> updateReservation(
     Reservation reservation,
   ) {
@@ -32,7 +43,7 @@ class ReservationRepository {
         .catchError((error) => print('Failure Update'));
   }
 
-  Future<void> updateDelete(
+  Future<void> reservationDelete(
     Reservation reservation,
   ) {
     return _ref

@@ -1,11 +1,11 @@
-class CountryModel {
+class ProvinceModel {
   String label;
   String provinceName;
   int noOfTours;
   double rating;
   String imgUrl;
 
-  CountryModel(
+  ProvinceModel(
       {this.provinceName,
       this.label,
       this.noOfTours,

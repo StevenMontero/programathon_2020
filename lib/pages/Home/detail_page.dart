@@ -1,6 +1,8 @@
+import 'package:circular_profile_avatar/circular_profile_avatar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:programathon_tuercas_2020/Models/publication.dart';
 import 'package:programathon_tuercas_2020/pages/Home/dumydata/country_model.dart';
 import 'package:programathon_tuercas_2020/pages/Home/dumydata/data.dart';
 import 'package:programathon_tuercas_2020/pages/Home/AddReservationPage/new_reservation_form.dart';
@@ -10,20 +12,20 @@ import 'package:programathon_tuercas_2020/blocs/ReservationCubit/reservation_cub
 
 class Details extends StatefulWidget {
   final String imgUrl;
-  final String placeName;
+  final Publication publication;
 
-  Details({@required this.imgUrl, @required this.placeName});
+  Details({@required this.imgUrl, @required this.publication});
 
   @override
   _DetailsState createState() => _DetailsState();
 }
 
 class _DetailsState extends State<Details> {
-  List<CountryModel> country = new List();
+  List<ProvinceModel> country = new List();
 
   @override
   void initState() {
-    country = getCountrys();
+    country = getProvince();
     super.initState();
   }
 
@@ -95,7 +97,7 @@ class _DetailsState extends State<Details> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                widget.placeName,
+                                widget.publication.title,
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.w600,
@@ -115,7 +117,11 @@ class _DetailsState extends State<Details> {
                                     width: 8,
                                   ),
                                   Text(
-                                    "Koh Chang Tai, Thailand",
+                                    widget.publication.address.province +
+                                        ', ' +
+                                        widget.publication.address.canton +
+                                        ', ' +
+                                        widget.publication.address.district,
                                     style: TextStyle(
                                         color: Colors.white70,
                                         fontWeight: FontWeight.w500,
@@ -146,32 +152,59 @@ class _DetailsState extends State<Details> {
                   )
                 ],
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  FeaturesTile(
-                    icon: Icon(Icons.wifi, color: Color(0xff5A6C64)),
-                    label: "Free Wi-Fi",
+                  CircularProfileAvatar(
+                    widget.publication.userProfile.photoUri,
                   ),
-                  FeaturesTile(
-                    icon: Icon(Icons.beach_access, color: Color(0xff5A6C64)),
-                    label: "Sand Beach",
+                  SizedBox(
+                    height: 10.0,
                   ),
-                  FeaturesTile(
-                    icon: Icon(Icons.card_travel, color: Color(0xff5A6C64)),
-                    label: "First Coastline",
+                  Text(widget.publication.userProfile.userName),
+                  SizedBox(
+                    height: 8.0,
                   ),
-                  FeaturesTile(
-                    icon: Icon(Icons.local_drink, color: Color(0xff5A6C64)),
-                    label: "bar and Resturant",
-                  )
+                  Text(widget.publication.userProfile.email)
                 ],
               ),
+              SizedBox(
+                height: 10.0,
+              ),
+              widget.publication.extras.length > 0
+                  ? Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: List<Widget>.from(
+                          widget.publication.extras.map((e) => Padding(
+                                padding: const EdgeInsets.all(15.0),
+                                child: FeaturesTile(
+                                  icon: e == 'Alimentación'
+                                      ? Icons.fastfood
+                                      : Icons.directions_bus,
+                                  label: e,
+                                ),
+                              ))))
+                  : Container(),
               Container(
                 margin: EdgeInsets.symmetric(vertical: 24),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [DetailsCard(), DetailsCard()],
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    DetailsCard(
+                      title: 'Precio',
+                      noOfReviews: widget.publication.price.toString(),
+                      iconData: Icons.monetization_on,
+                    ),
+                    SizedBox(
+                      width: 15,
+                    ),
+                    DetailsCard(
+                      title: 'Cupos',
+                      noOfReviews: widget.publication.quotas.toString(),
+                      iconData: Icons.people,
+                    )
+                  ],
                 ),
               ),
               SizedBox(
@@ -180,7 +213,7 @@ class _DetailsState extends State<Details> {
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 24),
                 child: Text(
-                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut scelerisque arcu quis eros auctor, eu dapibus urna congue. Nunc nisi diam, semper maximus risus dignissim, semper maximus nibh. Sed finibus ipsum eu erat finibus efficitur. ",
+                  widget.publication.description,
                   textAlign: TextAlign.start,
                   style: TextStyle(
                       fontSize: 15,
@@ -195,14 +228,24 @@ class _DetailsState extends State<Details> {
               Container(
                 height: 240,
                 child: ListView.builder(
+                    itemCount: widget.publication.photos.length,
                     padding: EdgeInsets.symmetric(horizontal: 24),
-                    itemCount: country.length,
                     shrinkWrap: true,
                     physics: ClampingScrollPhysics(),
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (context, index) {
-                      return ImageListTile(
-                        imgUrl: country[index].imgUrl,
+                      return FutureBuilder(
+                        future: widget.publication.getImages(),
+                        builder: (BuildContext context,
+                            AsyncSnapshot<List<String>> snapshot) {
+                          if (snapshot.hasData)
+                            return ImageListTile(
+                              imgUrl: snapshot.data[index],
+                            );
+                          return Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        },
                       );
                     }),
               ),
@@ -229,8 +272,8 @@ class _DetailsState extends State<Details> {
 class DetailsCard extends StatelessWidget {
   final String title;
   final String noOfReviews;
-  final double rating;
-  DetailsCard({this.rating, this.title, this.noOfReviews});
+  final IconData iconData;
+  DetailsCard({this.iconData, this.title, this.noOfReviews});
 
   @override
   Widget build(BuildContext context) {
@@ -248,10 +291,7 @@ class DetailsCard extends StatelessWidget {
                 decoration: BoxDecoration(
                     color: Color(0xffD5E6F2),
                     borderRadius: BorderRadius.circular(10)),
-                child: SvgPicture.asset(
-                  "assets/icons/Heart Icon.svg",
-                  height: 30,
-                ),
+                child: Icon(iconData),
               ),
               SizedBox(
                 width: 8,
@@ -260,7 +300,7 @@ class DetailsCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Booking",
+                    title,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         fontSize: 16,
@@ -271,7 +311,7 @@ class DetailsCard extends StatelessWidget {
                     height: 6,
                   ),
                   Text(
-                    "8.0/10",
+                    noOfReviews,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         fontSize: 14,
@@ -285,14 +325,6 @@ class DetailsCard extends StatelessWidget {
           SizedBox(
             height: 8,
           ),
-          Text(
-            " Based on 30 reviews",
-            textAlign: TextAlign.center,
-            style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w600,
-                color: Color(0xff879D95)),
-          ),
         ],
       ),
     );
@@ -300,7 +332,7 @@ class DetailsCard extends StatelessWidget {
 }
 
 class FeaturesTile extends StatelessWidget {
-  final Icon icon;
+  final IconData icon;
   final String label;
   FeaturesTile({this.label, this.icon});
 
@@ -316,13 +348,13 @@ class FeaturesTile extends StatelessWidget {
               decoration: BoxDecoration(
                   border: Border.all(color: Color(0xff5A6C64).withOpacity(0.5)),
                   borderRadius: BorderRadius.circular(40)),
-              child: icon,
+              child: Icon(icon),
             ),
             SizedBox(
               height: 9,
             ),
             Container(
-                width: 70,
+                width: 83,
                 child: Text(
                   label,
                   textAlign: TextAlign.center,
