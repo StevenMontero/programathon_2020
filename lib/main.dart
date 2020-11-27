@@ -16,10 +16,10 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   final AuthenticationRepository authenticationRepository;
-
   const MyApp({Key key, @required this.authenticationRepository})
       : assert(authenticationRepository != null),
         super(key: key);
+
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([
