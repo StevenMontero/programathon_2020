@@ -1,35 +1,34 @@
-part of 'mypost_bloc.dart';
+part of 'myreservation_bloc.dart';
 
-abstract class MyPostState extends Equatable {
-  const MyPostState();
+abstract class MyReservationState extends Equatable {
+  const MyReservationState();
 
   @override
   List<Object> get props => [];
 }
 
-class MyPostInitial extends MyPostState {}
+class MyReservationInitial extends MyReservationState {}
 
-class MyPostFailure extends MyPostState {}
+class MyReservationFailure extends MyReservationState {}
 
-class MyPostSuccess extends MyPostState {
-  final List<Publication> posts;
+class MyReservationSuccess extends MyReservationState {
+  final List<Reservation> reservation;
 
-  const MyPostSuccess({
-    this.posts,
+  const MyReservationSuccess({
+    this.reservation,
   });
 
-  MyPostSuccess copyWith({
-    List<Publication> posts,
-    bool hasReachedMax,
+  MyReservationSuccess copyWith({
+    List<Reservation> reservation,
   }) {
-    return MyPostSuccess(
-      posts: posts ?? this.posts,
+    return MyReservationSuccess(
+      reservation: reservation ?? this.reservation,
     );
   }
 
   @override
-  List<Object> get props => [posts];
+  List<Object> get props => [reservation];
 
   @override
-  String toString() => 'PostSuccess { posts: ${posts.length} }';
+  String toString() => 'PostSuccess { posts: ${reservation.length} }';
 }

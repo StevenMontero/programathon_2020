@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:programathon_tuercas_2020/blocs/AuthenticationBloc/authentication_bloc.dart';
-import 'package:programathon_tuercas_2020/blocs/MyPostBloc/mypost_bloc.dart';
 import 'package:programathon_tuercas_2020/blocs/MyReservationBloc/myreservation_bloc.dart';
 import 'package:programathon_tuercas_2020/repositories/DB/reservation_repository.dart';
-import 'package:programathon_tuercas_2020/widgets/card_popular_turs.dart';
 
 class MyReservationPage extends StatelessWidget {
   const MyReservationPage({Key key}) : super(key: key);
