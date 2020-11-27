@@ -1,13 +1,15 @@
 part of 'reservation_cubit.dart';
 
 class ReservationFormnState extends Equatable {
-  final EmptyDateValidator dateCheckIn;
-  final EmptyDateValidator dateCheckOut;
+  final EmptyValidator dateCheckIn;
+  final EmptyValidator dateCheckOut;
+  final EmptyValidator date;
   final Number quotes;
   final FormzStatus status;
   const ReservationFormnState({
-    this.dateCheckIn = const EmptyDateValidator.pure(),
-    this.dateCheckOut = const EmptyDateValidator.pure(),
+    this.date = const EmptyValidator.pure(),
+    this.dateCheckIn = const EmptyValidator.pure(),
+    this.dateCheckOut = const EmptyValidator.pure(),
     this.quotes = const Number.pure(),
     this.status = FormzStatus.pure,
   });
@@ -15,14 +17,16 @@ class ReservationFormnState extends Equatable {
   ReservationFormnState copyWith({
     Number quotes,
     FormzStatus status,
-    EmptyDateValidator dateCheckIn,
-    EmptyDateValidator dateCheckOut,
+    EmptyValidator date,
+    EmptyValidator dateCheckIn,
+    EmptyValidator dateCheckOut,
   }) {
     return ReservationFormnState(
+      date: date ?? this.date,
       quotes: quotes ?? this.quotes,
       status: status ?? this.status,
       dateCheckIn: dateCheckIn ?? this.dateCheckIn,
-      dateCheckOut: dateCheckIn ?? this.dateCheckOut,
+      dateCheckOut: dateCheckOut ?? this.dateCheckOut,
     );
   }
 
