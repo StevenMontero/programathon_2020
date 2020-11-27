@@ -15,15 +15,14 @@ class PublicatonRepository {
         .catchError((error) => print('Failed to add publication: $error'));
   }
 
-  Future<Publication> getUserProfile(String idPublication) async {
-    Publication publication;
-    DocumentSnapshot snapshot;
-    snapshot = await _ref.doc(idPublication).get();
-    if (snapshot.exists) {
-      return publication = Publication.fromJson(snapshot.data());
-    } else {
-      return null;
-    }
+  Future<List<Publication>> getListPublications() async {
+    List<Publication> publication = new List();
+    QuerySnapshot snapshot = await _ref.get();
+    snapshot.docs.forEach((element) {
+      publication.add(Publication.fromJson(element.data()));
+    });
+    print(publication);
+    return publication;
   }
 
   Future<void> updateUser(

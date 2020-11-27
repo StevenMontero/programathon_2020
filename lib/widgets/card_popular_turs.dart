@@ -43,66 +43,71 @@ class PopularToursCard extends StatelessWidget {
                 fit: BoxFit.cover,
               ),
             ),
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    title,
-                    style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                        color: Color(0xff4E6059)),
-                  ),
-                  SizedBox(
-                    height: 3,
-                  ),
-                  Text(
-                    desc,
-                    style: TextStyle(
-                        fontSize: 13,
-                        fontWeight: FontWeight.w400,
-                        color: Color(0xff89A097)),
-                  ),
-                  SizedBox(
-                    height: 6,
-                  ),
-                  Text(
-                    price,
-                    style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                        color: Color(0xff4E6059)),
-                  )
-                ],
-              ),
-            ),
-            Container(
-                margin: EdgeInsets.only(bottom: 10, right: 8),
-                padding: EdgeInsets.symmetric(horizontal: 4, vertical: 12),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(6),
-                    color: Color(0xff139157)),
+            Expanded(
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 16),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "C.R",
+                      title,
                       style: TextStyle(
-                          color: Colors.white,
+                          fontSize: 16,
                           fontWeight: FontWeight.w600,
-                          fontSize: 12),
+                          color: Color(0xff4E6059)),
                     ),
                     SizedBox(
-                      height: 2,
+                      height: 3,
                     ),
-                    Icon(
-                      Icons.flag,
-                      color: Colors.white,
-                      size: 20,
+                    Text(
+                      desc,
+                      style: TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w400,
+                          color: Color(0xff89A097)),
+                    ),
+                    SizedBox(
+                      height: 6,
+                    ),
+                    Text(
+                      price,
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                          color: Color(0xff4E6059)),
                     )
                   ],
-                ))
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(right: 10),
+              child: Container(
+                  margin: EdgeInsets.only(bottom: 10, right: 8),
+                  padding: EdgeInsets.symmetric(horizontal: 4, vertical: 12),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(6),
+                      color: Color(0xff139157)),
+                  child: Column(
+                    children: [
+                      Text(
+                        "C.R",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 12),
+                      ),
+                      SizedBox(
+                        height: 2,
+                      ),
+                      Icon(
+                        Icons.flag,
+                        color: Colors.white,
+                        size: 20,
+                      )
+                    ],
+                  )),
+            )
           ],
         ),
       ),
