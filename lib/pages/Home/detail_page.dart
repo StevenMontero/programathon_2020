@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:programathon_tuercas_2020/pages/Home/dumydata/country_model.dart';
 import 'package:programathon_tuercas_2020/pages/Home/dumydata/data.dart';
 import 'package:programathon_tuercas_2020/pages/Home/AddReservationPage/new_reservation_form.dart';
+import 'package:programathon_tuercas_2020/repositories/DB/reservation_repository.dart';
+
+import 'package:programathon_tuercas_2020/blocs/ReservationCubit/reservation_cubit.dart';
 
 class Details extends StatefulWidget {
   final String imgUrl;
@@ -27,7 +31,11 @@ class _DetailsState extends State<Details> {
     showModalBottomSheet(
         context: ctx,
         builder: (_) {
-          return FormReservation();
+          return BlocProvider(
+            create: (BuildContext context) =>
+                ReservationCubit(ReservationRepository()),
+            child: FormReservation(),
+          );
         });
   }
 
