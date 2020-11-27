@@ -168,16 +168,25 @@ class _BodyState extends State<Body> {
                       child: Text('no posts'),
                     );
                   }
+
                   return ListView.builder(
                       shrinkWrap: true,
                       physics: ClampingScrollPhysics(),
                       itemCount: state.posts.length,
                       itemBuilder: (context, index) {
-                        return PopularToursCard(
-                          desc: state.posts[index].description,
-                          imgUrl: widget.popularTourModels[index].imgUrl,
-                          title: state.posts[index].title ?? 'Hola',
-                          price: state.posts[index].price.toString(),
+                        return FutureBuilder(
+                          future: state.posts[index].getImages(),
+                          builder: (BuildContext context,
+                              AsyncSnapshot<List<String>> snapshot) {
+                            if (snapshot.hasData)
+                              return PopularToursCard(
+                                desc: state.posts[index].description,
+                                imgUrl: snapshot.data[0],
+                                title: state.posts[index].title ?? 'Hola',
+                                price: state.posts[index].price.toString(),
+                              );
+                            return Container();
+                          },
                         );
                       });
                 }

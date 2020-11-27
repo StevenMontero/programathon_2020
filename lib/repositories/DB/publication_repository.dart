@@ -46,4 +46,18 @@ class PublicatonRepository {
       }
     }
   }
+
+  Future<List<String>> loadImage(List<String> images) async {
+    List<String> imagesListURL = new List();
+    for (var item in images) {
+      try {
+        imagesListURL
+            .add(await _storageRef.ref('imagenes/$item').getDownloadURL());
+      } on FirebaseException catch (e) {
+        print('Error subir foto :' + e.message);
+      }
+    }
+
+    return imagesListURL;
+  }
 }
