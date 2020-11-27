@@ -32,7 +32,7 @@ class Publication {
       quotas: json['quotas'],
       extras: List<String>.from(json['extras'].map((x) => x)),
       photos: List<String>.from(json['photos'].map((x) => x)),
-      datePublication: DateTime.now(),
+      datePublication: json['datePublication'].toDate(),
       // DateTime.fromMillisecondsSinceEpoch(json['datePublication'] * 1000),
       address: Address.fromJson(json['address']),
       userProfile: UserProfile.fromJson(json['userProfile']));
