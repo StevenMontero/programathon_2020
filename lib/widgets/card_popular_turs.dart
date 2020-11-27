@@ -6,6 +6,7 @@ class PopularToursCard extends StatelessWidget {
   final String title;
   final String desc;
   final String price;
+
   PopularToursCard(
       {@required this.imgUrl,
       @required this.desc,

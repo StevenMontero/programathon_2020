@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:programathon_tuercas_2020/pages/Home/dumydata/country_model.dart';
 import 'package:programathon_tuercas_2020/pages/Home/dumydata/data.dart';
+import 'package:programathon_tuercas_2020/pages/Home/AddReservationPage/new_reservation_form.dart';
 
 class Details extends StatefulWidget {
   final String imgUrl;
@@ -20,6 +21,14 @@ class _DetailsState extends State<Details> {
   void initState() {
     country = getCountrys();
     super.initState();
+  }
+
+  void startAddNewReservation(BuildContext ctx) {
+    showModalBottomSheet(
+        context: ctx,
+        builder: (_) {
+          return FormReservation();
+        });
   }
 
   @override
@@ -192,6 +201,18 @@ class _DetailsState extends State<Details> {
             ],
           ),
         ),
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          startAddNewReservation(context);
+        },
+        label: Text(
+          'Reservar',
+          style: TextStyle(
+            color: Colors.white,
+          ),
+        ),
+        backgroundColor: Color(0xff139157),
       ),
     );
   }
