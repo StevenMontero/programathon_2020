@@ -48,7 +48,7 @@ class ReservationCard extends StatelessWidget {
                       height: 3,
                     ),
                     Text(
-                      '${reservation.userClient.userName} / ${reservation.userClient.email}',
+                      '${reservation.publication.userProfile.userName} / ${reservation.publication.userProfile.email}',
                       style: TextStyle(
                           fontSize: 13,
                           fontWeight: FontWeight.w400,
