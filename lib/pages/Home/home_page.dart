@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:programathon_tuercas_2020/blocs/HomeBloc/home_bloc.dart';
-import 'package:programathon_tuercas_2020/blocs/PastListBloc/postlist_bloc.dart';
 import 'package:programathon_tuercas_2020/pages/Home/dumydata/country_model.dart';
 import 'package:programathon_tuercas_2020/pages/Home/dumydata/data.dart';
 import 'package:programathon_tuercas_2020/pages/Home/search_delegate.dart';
@@ -96,109 +95,117 @@ class _BodyState extends State<Body> {
     _cubit = BlocProvider.of<HomeBloc>(context);
   }
 
+  Future<void> _fetchNewPosts() async {
+    context.read<HomeBloc>().add(PostFetched());
+  }
+
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 24, vertical: 24),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              "Los mejores lugares y tours",
-              style: TextStyle(
-                  fontSize: 25,
-                  color: Colors.black54,
-                  fontWeight: FontWeight.w600),
-            ),
-            SizedBox(
-              height: 8,
-            ),
-            Text(
-              "Provincias",
-              style: TextStyle(
-                  fontSize: 20,
-                  color: Colors.black54,
-                  fontWeight: FontWeight.w600),
-            ),
-            SizedBox(
-              height: 16,
-            ),
-            Container(
-              height: 220,
-              child: ListView.builder(
-                  itemCount: widget.province.length,
-                  shrinkWrap: true,
-                  physics: ClampingScrollPhysics(),
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) {
-                    return ProvinceCard(
-                      onPress: () {
-                        Navigator.of(context).pushNamed('listpost',
-                            arguments: widget.province[index].provinceName);
-                      },
-                      label: widget.province[index].label,
-                      provinceName: widget.province[index].provinceName,
-                      noOfTours: widget.province[index].noOfTours,
-                      imgUrl: widget.province[index].imgUrl,
-                    );
-                  }),
-            ),
-            SizedBox(
-              height: 8,
-            ),
-            Text(
-              "Tours",
-              style: TextStyle(
-                  fontSize: 20,
-                  color: Colors.black54,
-                  fontWeight: FontWeight.w600),
-            ),
-            SizedBox(
-              height: 16,
-            ),
-            BlocBuilder<HomeBloc, HomeState>(
-              builder: (context, state) {
-                if (state is PostInitial) {
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
-                }
-                if (state is PostFailure) {
-                  return Center(
-                    child: Text('failed to fetch posts'),
-                  );
-                }
-                if (state is PostSuccess) {
-                  if (state.posts.isEmpty) {
+    return RefreshIndicator(
+      onRefresh: _fetchNewPosts,
+      child: SingleChildScrollView(
+        physics: const AlwaysScrollableScrollPhysics(),
+        child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 24, vertical: 24),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "Los mejores lugares y tours",
+                style: TextStyle(
+                    fontSize: 25,
+                    color: Colors.black54,
+                    fontWeight: FontWeight.w600),
+              ),
+              SizedBox(
+                height: 8,
+              ),
+              Text(
+                "Provincias",
+                style: TextStyle(
+                    fontSize: 20,
+                    color: Colors.black54,
+                    fontWeight: FontWeight.w600),
+              ),
+              SizedBox(
+                height: 16,
+              ),
+              Container(
+                height: 220,
+                child: ListView.builder(
+                    itemCount: widget.province.length,
+                    shrinkWrap: true,
+                    physics: ClampingScrollPhysics(),
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (context, index) {
+                      return ProvinceCard(
+                        onPress: () {
+                          Navigator.of(context).pushNamed('listpost',
+                              arguments: widget.province[index].provinceName);
+                        },
+                        label: widget.province[index].label,
+                        provinceName: widget.province[index].provinceName,
+                        noOfTours: widget.province[index].noOfTours,
+                        imgUrl: widget.province[index].imgUrl,
+                      );
+                    }),
+              ),
+              SizedBox(
+                height: 8,
+              ),
+              Text(
+                "Tours",
+                style: TextStyle(
+                    fontSize: 20,
+                    color: Colors.black54,
+                    fontWeight: FontWeight.w600),
+              ),
+              SizedBox(
+                height: 16,
+              ),
+              BlocBuilder<HomeBloc, HomeState>(
+                builder: (context, state) {
+                  if (state is PostInitial) {
                     return Center(
-                      child: Text('no posts'),
+                      child: CircularProgressIndicator(),
                     );
                   }
+                  if (state is PostFailure) {
+                    return Center(
+                      child: Text('failed to fetch posts'),
+                    );
+                  }
+                  if (state is PostSuccess) {
+                    if (state.posts.isEmpty) {
+                      return Center(
+                        child: Text('no posts'),
+                      );
+                    }
 
-                  return ListView.builder(
-                      shrinkWrap: true,
-                      physics: ClampingScrollPhysics(),
-                      itemCount: state.posts.length,
-                      itemBuilder: (context, index) {
-                        return FutureBuilder(
-                          future: state.posts[index].getImages(),
-                          builder: (BuildContext context,
-                              AsyncSnapshot<List<String>> snapshot) {
-                            if (snapshot.hasData)
-                              return PopularToursCard(
-                                imgUrl: snapshot.data[0],
-                                publication: state.posts[index],
-                              );
-                            return Container();
-                          },
-                        );
-                      });
-                }
-                return Container();
-              },
-            )
-          ],
+                    return ListView.builder(
+                        shrinkWrap: true,
+                        physics: ClampingScrollPhysics(),
+                        itemCount: state.posts.length,
+                        itemBuilder: (context, index) {
+                          return FutureBuilder(
+                            future: state.posts[index].getImages(),
+                            builder: (BuildContext context,
+                                AsyncSnapshot<List<String>> snapshot) {
+                              if (snapshot.hasData)
+                                return PopularToursCard(
+                                  imgUrl: snapshot.data[0],
+                                  publication: state.posts[index],
+                                );
+                              return Container();
+                            },
+                          );
+                        });
+                  }
+                  return Container();
+                },
+              )
+            ],
+          ),
         ),
       ),
     );

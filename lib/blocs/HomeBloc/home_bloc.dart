@@ -28,7 +28,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           yield posts.isEmpty
               ? currentState.copyWith(hasReachedMax: true)
               : PostSuccess(
-                  posts: currentState.posts + posts,
+                  posts: posts,
                   hasReachedMax: false,
                 );
         }

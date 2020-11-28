@@ -19,6 +19,5 @@ Map<String, WidgetBuilder> getRoutesApp() {
     'listpost': (BuildContext context) => ListPostProvincePage(),
     'mypost': (BuildContext context) => MyPostPage(),
     'myreservation': (BuildContext context) => MyReservationPage(),
-    //   'mypost': (BuildContext context) => MyPostPage(),
   };
 }

@@ -5,6 +5,7 @@ class ColorsApp {
   static const primaryColorOrange = Color(0xFFED6D4E);
   static const primaryColorTurquoise = Color(0xFF3AC8DB);
   static const primaryColorPink = Color(0xFFFD90AA);
+  static const primaryColorGreen = Color(0xff139157);
 
   static const secondaryColorlightBlue = Color(0xFF8C94DF);
   static const secondaryColorlightPurple = Color(0xFFA19CCC);

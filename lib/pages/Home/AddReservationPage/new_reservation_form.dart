@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:programathon_tuercas_2020/blocs/AuthenticationBloc/authentication_bloc.dart';
+import 'package:programathon_tuercas_2020/theme/colors.dart';
 import 'package:programathon_tuercas_2020/widgets/text_fiield.dart';
 import 'package:programathon_tuercas_2020/blocs/ReservationCubit/reservation_cubit.dart';
 import 'package:programathon_tuercas_2020/Models/publication.dart';
 import 'package:programathon_tuercas_2020/Models/user_profile.dart';
+import 'package:formz/formz.dart';
 
 class FormReservation extends StatefulWidget {
   final Publication publication;
@@ -161,30 +163,38 @@ class _ReservationFormState extends State<FormReservation> {
                   Spacer(),
                   BlocBuilder<ReservationCubit, ReservationFormnState>(
                       builder: (ctx, state) {
-                    return RaisedButton(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(18.0),
-                      ),
-                      onPressed: () {
-                        final user =
-                            BlocProvider.of<AuthenticationBloc>(context)
-                                .state
-                                .user;
-                        final userProfile = new UserProfile(
-                            userName: user.name,
-                            email: user.email,
-                            id: user.id,
-                            photoUri: user.photo);
-                        context.read<ReservationCubit>().summitFromPublication(
-                            userProfile, widget.publication);
-                        Navigator.pop(context);
-                      },
-                      padding: EdgeInsets.all(10.0),
-                      color: Color(0xff139157),
-                      textColor: Colors.white,
-                      child: Text("Solicitar reserva",
-                          style: TextStyle(fontSize: 15)),
-                    );
+                    return state.status.isSubmissionInProgress
+                        ? LinearProgressIndicator()
+                        : RaisedButton(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(18.0),
+                            ),
+                            onPressed: () {
+                              if (state.status.isValidated) {
+                                final user =
+                                    BlocProvider.of<AuthenticationBloc>(context)
+                                        .state
+                                        .user;
+                                final userProfile = new UserProfile(
+                                    userName: user.name,
+                                    email: user.email,
+                                    id: user.id,
+                                    photoUri: user.photo);
+                                context
+                                    .read<ReservationCubit>()
+                                    .summitFromPublication(
+                                        userProfile, widget.publication);
+                                Navigator.pop(context);
+                              }
+                            },
+                            padding: EdgeInsets.all(10.0),
+                            color: !state.status.isValidated
+                                ? Colors.grey
+                                : ColorsApp.primaryColorGreen,
+                            textColor: Colors.white,
+                            child: Text("Solicitar reserva",
+                                style: TextStyle(fontSize: 15)),
+                          );
                   }),
                 ],
               )

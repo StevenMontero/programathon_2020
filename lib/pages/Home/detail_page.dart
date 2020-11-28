@@ -47,6 +47,7 @@ class _DetailsState extends State<Details> {
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Container(
+          padding: EdgeInsets.only(bottom: 50),
           child: Column(
             children: [
               Stack(

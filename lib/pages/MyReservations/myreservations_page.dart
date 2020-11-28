@@ -42,7 +42,7 @@ class Body extends StatelessWidget {
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Text(
-                "Mis Publicaciones",
+                "Mis Reservaciones",
                 style: TextStyle(
                     fontSize: 25,
                     color: Colors.black54,

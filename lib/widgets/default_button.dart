@@ -18,7 +18,7 @@ class DefaultButton extends StatelessWidget {
       child: FlatButton(
         disabledColor: Colors.grey,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        color: ColorsApp.primaryColorOrange,
+        color: ColorsApp.primaryColorGreen,
         onPressed: press,
         child: Text(
           text,
