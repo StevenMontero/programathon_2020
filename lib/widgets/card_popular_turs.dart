@@ -58,6 +58,8 @@ class PopularToursCard extends StatelessWidget {
                     ),
                     Text(
                       publication.description,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                           fontSize: 13,
                           fontWeight: FontWeight.w400,
@@ -67,7 +69,7 @@ class PopularToursCard extends StatelessWidget {
                       height: 6,
                     ),
                     Text(
-                      publication.price.toString(),
+                      '₡ ' + publication.price.toString(),
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                           fontSize: 16,

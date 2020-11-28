@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:programathon_tuercas_2020/blocs/AuthenticationBloc/authentication_bloc.dart';
 import 'package:programathon_tuercas_2020/blocs/MyReservationBloc/myreservation_bloc.dart';
 import 'package:programathon_tuercas_2020/repositories/DB/reservation_repository.dart';
@@ -60,13 +61,25 @@ class Body extends StatelessWidget {
                   }
                   if (state is MyReservationFailure) {
                     return Center(
-                      child: Text('failed to fetch posts'),
+                      child: Column(
+                        children: [
+                          Text('No se pudo cargar las publicaiones'),
+                          SvgPicture.asset(
+                              'assets/images/undraw_page_not_found_su7k.svg')
+                        ],
+                      ),
                     );
                   }
                   if (state is MyReservationSuccess) {
                     if (state.reservation.isEmpty) {
                       return Center(
-                        child: Text('no posts'),
+                        child: Column(
+                          children: [
+                            Text('No hay publicaciones'),
+                            SvgPicture.asset(
+                                'assets/images/undraw_Taken_re_yn20.svg')
+                          ],
+                        ),
                       );
                     }
 
@@ -80,7 +93,11 @@ class Body extends StatelessWidget {
                                 .getImages(),
                             builder: (BuildContext context,
                                 AsyncSnapshot<List<String>> snapshot) {
-                              if (snapshot.hasData) return ReservationCard();
+                              if (snapshot.hasData)
+                                return ReservationCard(
+                                  imageURl: snapshot.data[0],
+                                  reservation: state.reservation[index],
+                                );
                               return Container();
                             },
                           );
