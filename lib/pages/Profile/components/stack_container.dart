@@ -26,8 +26,7 @@ class StackContainer extends StatelessWidget {
                 height: 300.0,
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                    image: NetworkImage(
-                        "https://wallpaperset.com/w/full/d/9/6/117543.jpg"),
+                    image: AssetImage('assets/images/profile-background.jpg'),
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -39,20 +38,20 @@ class StackContainer extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   CircularProfileAvatar(
-                   state.user.photo,
+                    state.user.photo,
                     borderWidth: 4.0,
                     radius: 60.0,
                   ),
                   SizedBox(height: 4.0),
                   Text(
-                      state.user.name,
+                    state.user.name,
                     style: TextStyle(
                       fontSize: 21.0,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   Text(
-                      state.user.email,
+                    state.user.email,
                     style: TextStyle(
                       fontSize: 12.0,
                       color: Colors.grey[700],
