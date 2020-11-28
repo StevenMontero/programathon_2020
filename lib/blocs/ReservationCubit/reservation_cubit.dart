@@ -58,10 +58,12 @@ class ReservationCubit extends Cubit<ReservationFormnState> {
   void summitFromPublication(UserProfile user, Publication publication) {
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
     final reservation = Reservation(
-        dateCheckIn: state.dateCheckIn.value,
-        dateCheckOut: state.dateCheckOut.value,
-        publication: publication,
-        userClient: user);
+      dateCheckIn: state.dateCheckIn.value,
+      dateCheckOut: state.dateCheckOut.value,
+      publication: publication,
+      userClient: user,
+      date: state.date.value,
+    );
 
     try {
       _repReservation.addNewReservation(reservation);

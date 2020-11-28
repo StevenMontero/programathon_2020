@@ -36,7 +36,7 @@ class _DetailsState extends State<Details> {
           return BlocProvider(
             create: (BuildContext context) =>
                 ReservationCubit(ReservationRepository()),
-            child: FormReservation(),
+            child: FormReservation(widget.publication),
           );
         });
   }
