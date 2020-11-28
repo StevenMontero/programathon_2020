@@ -28,7 +28,7 @@ class NewpublicationCubit extends Cubit<PublicationFormnState> {
     final address = new Address(
         province: state.province.value,
         canton: state.canton.value,
-        district: state.description.value,
+        district: state.districs.value,
         details: state.addressDetails.value);
     final publication = new Publication(
         id: user.id + '-' + date.toString(),
