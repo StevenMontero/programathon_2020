@@ -5,6 +5,7 @@ class Reservation {
   final String idReservation;
   final DateTime dateCheckIn;
   final DateTime dateCheckOut;
+  final DateTime date;
   final Publication publication;
   final UserProfile userClient;
   Reservation({
@@ -13,6 +14,7 @@ class Reservation {
     this.dateCheckOut,
     this.publication,
     this.userClient,
+    this.date,
   });
 
   factory Reservation.fromJson(Map<String, dynamic> json) => Reservation(
@@ -20,6 +22,7 @@ class Reservation {
         userClient: UserProfile.fromJson(json['userClient']),
         dateCheckIn: json['dateCheckIn'].toDate(),
         dateCheckOut: json['dateCheckOut'].toDate(),
+        date: json['date'].toDate(),
         publication: Publication.fromJson(json['publication']),
       );
 
@@ -30,6 +33,7 @@ class Reservation {
       'publication': this.publication.toJson(),
       'dateCheckIn': this.dateCheckIn,
       'dateCheckOut': this.dateCheckIn,
+      'date': this.date,
     };
   }
 }
