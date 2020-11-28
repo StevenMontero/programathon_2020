@@ -19,7 +19,8 @@ class AppDrawer extends StatelessWidget {
           _createDrawerItem(
               icon: FontAwesomeIcons.solidCalendar,
               text: 'Reservaciones Hechas',
-              onTap: () => Navigator.pushReplacementNamed(context, '')),
+              onTap: () =>
+                  Navigator.pushReplacementNamed(context, 'myreservation')),
           _createDrawerItem(
               icon: FontAwesomeIcons.solidCalendar,
               text: 'Mis Publicadas',

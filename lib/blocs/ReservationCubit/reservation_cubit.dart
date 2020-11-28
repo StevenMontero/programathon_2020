@@ -27,7 +27,7 @@ class ReservationCubit extends Cubit<ReservationFormnState> {
   }
 
   void dateReservationChange(DateTime value) {
-    final date = EmptyValidator.dirty(value);
+    final date = EmptyDateValidator.dirty(value);
     emit(state.copyWith(
       date: date,
       status: Formz.validate(
@@ -36,7 +36,7 @@ class ReservationCubit extends Cubit<ReservationFormnState> {
   }
 
   void dateCheckInChanged(DateTime value) {
-    final dateCheckIn = EmptyValidator.dirty(value);
+    final dateCheckIn = EmptyDateValidator.dirty(value);
 
     print(dateCheckIn);
     emit(state.copyWith(
@@ -47,7 +47,7 @@ class ReservationCubit extends Cubit<ReservationFormnState> {
   }
 
   void dateCheckOutChanged(DateTime value) {
-    final dateCheckOut = EmptyValidator.dirty(value);
+    final dateCheckOut = EmptyDateValidator.dirty(value);
     emit(state.copyWith(
       dateCheckOut: dateCheckOut,
       status: Formz.validate(

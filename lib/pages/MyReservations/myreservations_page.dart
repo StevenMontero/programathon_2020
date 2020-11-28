@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:programathon_tuercas_2020/blocs/AuthenticationBloc/authentication_bloc.dart';
 import 'package:programathon_tuercas_2020/blocs/MyReservationBloc/myreservation_bloc.dart';
 import 'package:programathon_tuercas_2020/repositories/DB/reservation_repository.dart';
+import 'package:programathon_tuercas_2020/widgets/reservation_card.dart';
 
 class MyReservationPage extends StatelessWidget {
   const MyReservationPage({Key key}) : super(key: key);
@@ -74,19 +75,15 @@ class Body extends StatelessWidget {
                         physics: ClampingScrollPhysics(),
                         itemCount: state.reservation.length,
                         itemBuilder: (context, index) {
-                          //TODO: Hacer card para mostrar las reservaciones hechas
-                          // return FutureBuilder(
-                          //   future: state.reservation[index].getImages(),
-                          //   builder: (BuildContext context,
-                          //       AsyncSnapshot<List<String>> snapshot) {
-                          //     if (snapshot.hasData)
-                          //       return PopularToursCard(
-                          //         imgUrl: snapshot.data[0],
-                          //         publication: state.posts[index],
-                          //       );
-                          //     return Container();
-                          //   },
-                          // );
+                          return FutureBuilder(
+                            future: state.reservation[index].publication
+                                .getImages(),
+                            builder: (BuildContext context,
+                                AsyncSnapshot<List<String>> snapshot) {
+                              if (snapshot.hasData) return ReservationCard();
+                              return Container();
+                            },
+                          );
                         });
                   }
                   return Container();
