@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:programathon_tuercas_2020/blocs/PastListBloc/postlist_bloc.dart';
 import 'package:programathon_tuercas_2020/repositories/DB/publication_repository.dart';
 import 'package:programathon_tuercas_2020/widgets/card_popular_turs.dart';
@@ -59,13 +60,25 @@ class Body extends StatelessWidget {
                   }
                   if (state is PostListFailure) {
                     return Center(
-                      child: Text('failed to fetch posts'),
+                      child: Column(
+                        children: [
+                          Text('No se pudo cargar las publicaiones'),
+                          SvgPicture.asset(
+                              'assets/images/undraw_page_not_found_su7k.svg')
+                        ],
+                      ),
                     );
                   }
                   if (state is PostListSuccess) {
                     if (state.posts.isEmpty) {
                       return Center(
-                        child: Text('no posts'),
+                        child: Column(
+                          children: [
+                            Text('No se pudo cargar las publicaiones'),
+                            SvgPicture.asset(
+                                'assets/images/undraw_Taken_re_yn20.svg')
+                          ],
+                        ),
                       );
                     }
 
