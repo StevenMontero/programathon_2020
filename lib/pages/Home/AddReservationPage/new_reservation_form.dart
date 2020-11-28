@@ -1,30 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:programathon_tuercas_2020/blocs/AuthenticationBloc/authentication_bloc.dart';
-import 'package:programathon_tuercas_2020/pages/Home/AddPublicationPage/components/body.dart';
-import 'package:programathon_tuercas_2020/repositories/DB/publication_repository.dart';
 import 'package:programathon_tuercas_2020/widgets/text_fiield.dart';
-import 'package:programathon_tuercas_2020/repositories/DB/reservation_repository.dart';
 import 'package:programathon_tuercas_2020/blocs/ReservationCubit/reservation_cubit.dart';
-import 'package:formz/formz.dart';
-
-class ReservationFormPage extends StatelessWidget {
-  const ReservationFormPage({Key key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (BuildContext context) =>
-          ReservationCubit(ReservationRepository()),
-      child: FormReservation(),
-    );
-  }
-}
+import 'package:programathon_tuercas_2020/Models/publication.dart';
+import 'package:programathon_tuercas_2020/Models/user_profile.dart';
 
 class FormReservation extends StatefulWidget {
-  FormReservation({Key key}) : super(key: key);
+  final Publication publication;
+
+  FormReservation(this.publication);
 
   @override
   _ReservationFormState createState() => _ReservationFormState();
@@ -180,9 +166,18 @@ class _ReservationFormState extends State<FormReservation> {
                         borderRadius: BorderRadius.circular(18.0),
                       ),
                       onPressed: () {
-                        // final user = BlocProvider.of<AuthenticationBloc>(context).state.user;
-
-                        // context.read<ReservationCubit>().summitFromPublication(user);
+                        final user =
+                            BlocProvider.of<AuthenticationBloc>(context)
+                                .state
+                                .user;
+                        final userProfile = new UserProfile(
+                            userName: user.name,
+                            email: user.email,
+                            id: user.id,
+                            photoUri: user.photo);
+                        context.read<ReservationCubit>().summitFromPublication(
+                            userProfile, widget.publication);
+                        Navigator.pop(context);
                       },
                       padding: EdgeInsets.all(10.0),
                       color: Color(0xff139157),
