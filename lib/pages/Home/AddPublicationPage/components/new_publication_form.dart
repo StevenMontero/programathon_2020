@@ -300,7 +300,6 @@ class _FormPublicationState extends State<FormPublication> {
         Padding(
           padding: const EdgeInsets.all(10.0),
           child: BlocBuilder<NewpublicationCubit, PublicationFormnState>(
-            buildWhen: (previous, current) => previous.status != current.status,
             builder: (context, state) {
               return state.status.isSubmissionInProgress
                   ? LinearProgressIndicator()
@@ -318,10 +317,8 @@ class _FormPublicationState extends State<FormPublication> {
                                       id: user.id,
                                       photoUri: user.photo));
 
-                              if (state.status.isSubmissionSuccess) {
-                                Navigator.of(context)
-                                    .pushReplacementNamed('home');
-                              }
+                              Navigator.of(context)
+                                  .pushReplacementNamed('home');
                             }
                           : null,
                     );

@@ -166,13 +166,25 @@ class _BodyState extends State<Body> {
                 }
                 if (state is PostFailure) {
                   return Center(
-                    child: Text('failed to fetch posts'),
+                    child: Column(
+                      children: [
+                        Text('No se pudo cargar las publicaiones'),
+                        SvgPicture.asset(
+                            'assets/images/undraw_page_not_found_su7k.svg')
+                      ],
+                    ),
                   );
                 }
                 if (state is PostSuccess) {
                   if (state.posts.isEmpty) {
                     return Center(
-                      child: Text('no posts'),
+                      child: Column(
+                        children: [
+                          Text('No hay publicaciones'),
+                          SvgPicture.asset(
+                              'assets/images/undraw_Taken_re_yn20.svg')
+                        ],
+                      ),
                     );
                   }
 
